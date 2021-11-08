@@ -1,6 +1,7 @@
 package br.com.jean;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import br.com.jean.domain.Cidade;
 import br.com.jean.domain.Cliente;
 import br.com.jean.domain.Endereco;
 import br.com.jean.domain.Estado;
+import br.com.jean.domain.ItemPedido;
 import br.com.jean.domain.Pagamento;
 import br.com.jean.domain.PagamentoComBoleto;
 import br.com.jean.domain.PagamentoComCartao;
@@ -25,6 +27,7 @@ import br.com.jean.repositories.CidadeRepository;
 import br.com.jean.repositories.ClienteRepository;
 import br.com.jean.repositories.EnderecoRepository;
 import br.com.jean.repositories.EstadoRepository;
+import br.com.jean.repositories.ItemPedidoRepository;
 import br.com.jean.repositories.PagamentoRepository;
 import br.com.jean.repositories.PedidoRepository;
 import br.com.jean.repositories.ProdutoRepository;
@@ -48,6 +51,8 @@ public class LojaspringbootApplication implements CommandLineRunner{
 	private PagamentoRepository pagamentoRepository;
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 
 	public static void main(String[] args) {
@@ -113,6 +118,18 @@ public class LojaspringbootApplication implements CommandLineRunner{
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 200.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.0, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 	}
 
 }
