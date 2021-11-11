@@ -7,5 +7,5 @@ import br.com.jean.domain.Cidade;
 
 @Repository
 public interface CidadeRepository extends JpaRepository<Cidade, Integer>{
-
+	
 }
