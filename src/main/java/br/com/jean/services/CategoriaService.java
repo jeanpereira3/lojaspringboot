@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.jean.domain.Categoria;
+import br.com.jean.dto.CategoriaDTO;
 import br.com.jean.repositories.CategoriaRepository;
 import br.com.jean.services.exceptions.DataIntegrityException;
 import br.com.jean.services.exceptions.ObjectNotFoundException;
@@ -20,11 +21,6 @@ public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository repository;
-
-//	public Categoria buscar(Integer id) {
-//		Optional<Categoria> obj = repository.findById(id);
-//		return obj.orElse(null);
-//	}
 
 	public Categoria find(Integer id) {
 		Optional<Categoria> obj = repository.findById(id);
@@ -61,7 +57,10 @@ public class CategoriaService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repository.findAll(pageRequest);
 	}
-
+	
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
+	}
 
 
 }
