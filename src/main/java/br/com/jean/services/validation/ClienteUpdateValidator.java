@@ -12,11 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
 import br.com.jean.domain.Cliente;
-import br.com.jean.domain.enuns.TipoCliente;
 import br.com.jean.dto.ClienteDTO;
 import br.com.jean.repositories.ClienteRepository;
 import br.com.jean.resources.exception.FieldMessage;
-import br.com.jean.services.validation.utils.BR;
 
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
 	
