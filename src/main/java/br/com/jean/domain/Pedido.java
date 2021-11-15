@@ -75,7 +75,7 @@ public class Pedido implements Serializable {
 		return pagemento;
 	}
 
-	public void setPagemento(Pagamento pagemento) {
+	public void setPagamento(Pagamento pagemento) {
 		this.pagemento = pagemento;
 	}
 

@@ -21,7 +21,6 @@ public class Estado implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-//	@JsonBackReference
 	@JsonIgnore
 	@OneToMany(mappedBy="estado")
 	private List<Cidade> cidades = new ArrayList<>();

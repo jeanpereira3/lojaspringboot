@@ -52,14 +52,7 @@ public class ProdutoResources {
 //		service.delete(id);
 //		return ResponseEntity.noContent().build();
 //	}
-//	
-//	@RequestMapping(method = RequestMethod.GET)
-//	public ResponseEntity<List<ProdutoDTO>> findAll() {
-//		List<Produto> categorias = service.findAll();
-//		List<ProdutoDTO> categoriasDTO = categorias.stream()
-//				.map(obj -> new ProdutoDTO(obj)).collect(Collectors.toList());
-//		return ResponseEntity.ok().body(categoriasDTO);
-//	}
+
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Page<ProdutoDTO>> findPage(
