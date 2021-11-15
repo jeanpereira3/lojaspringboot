@@ -1,6 +1,8 @@
 package br.com.jean.domain;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
@@ -99,6 +101,21 @@ public class ItemPedido implements Serializable {
 			return false;
 		ItemPedido other = (ItemPedido) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+		StringBuilder builder = new StringBuilder();
+		builder.append(getProduto().getNome());
+		builder.append(", Qte: ");
+		builder.append(getQuantidade());
+		builder.append(", Preço unitario: ");
+		builder.append(numberFormat.format(getPreco()));
+		builder.append(", Subtotal: ");
+		builder.append(numberFormat.format(getSubTotal()));
+		builder.append("\n");
+		return builder.toString();
 	}
 	
 	
