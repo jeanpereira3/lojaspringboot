@@ -28,9 +28,9 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-	private Date intante;
+	private Date instante;
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
-	private Pagamento pagemento;
+	private Pagamento pagamento;
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
@@ -45,7 +45,7 @@ public class Pedido implements Serializable {
 	public Pedido(Integer id, Date intante, Cliente cliente, Endereco enderecoDeEntrega) {
 		super();
 		this.id = id;
-		this.intante = intante;
+		this.instante = intante;
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
@@ -66,20 +66,20 @@ public class Pedido implements Serializable {
 		this.id = id;
 	}
 
-	public Date getIntante() {
-		return intante;
+	public Date getInstante() {
+		return instante;
 	}
 
-	public void setIntante(Date intante) {
-		this.intante = intante;
+	public void setInstante(Date instante) {
+		this.instante = instante;
 	}
 
-	public Pagamento getPagemento() {
-		return pagemento;
+	public Pagamento getPagamento() {
+		return pagamento;
 	}
 
-	public void setPagamento(Pagamento pagemento) {
-		this.pagemento = pagemento;
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 
 	public Cliente getCliente() {
@@ -131,11 +131,11 @@ public class Pedido implements Serializable {
 		builder.append("Pedido numero: ");
 		builder.append(getId());
 		builder.append(", Intante: ");
-		builder.append(simpleDateFormat.format(getIntante()));
+		builder.append(simpleDateFormat.format(getInstante()));
 		builder.append(", Cliente: ");
 		builder.append(getCliente().getNome());
 		builder.append(", Situacao do pagamento");
-		builder.append(getPagemento().getEstado().getDescricao());
+		builder.append(getPagamento().getEstado().getDescricao());
 		builder.append("\nDetalhes:\n");
 		for (ItemPedido ip : getItens()) {
 			builder.append(ip.toString());
