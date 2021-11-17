@@ -16,11 +16,14 @@ import org.springframework.stereotype.Service;
 import br.com.jean.domain.Cidade;
 import br.com.jean.domain.Cliente;
 import br.com.jean.domain.Endereco;
+import br.com.jean.domain.enuns.Perfil;
 import br.com.jean.domain.enuns.TipoCliente;
 import br.com.jean.dto.ClienteDTO;
 import br.com.jean.dto.ClienteNewDTO;
 import br.com.jean.repositories.ClienteRepository;
 import br.com.jean.repositories.EnderecoRepository;
+import br.com.jean.security.UserSS;
+import br.com.jean.services.exceptions.AuthorizationException;
 import br.com.jean.services.exceptions.DataIntegrityException;
 import br.com.jean.services.exceptions.ObjectNotFoundException;
 
@@ -35,6 +38,12 @@ public class ClienteService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Cliente> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
